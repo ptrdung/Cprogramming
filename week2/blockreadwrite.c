@@ -4,7 +4,7 @@ enum {SUCCESS, FAIL, MAX_LEN = 80};
 
 void BlockReadWrite(FILE * fin, FILE * fout);
 
-int main() 
+int main(int argc, char * argv[])
 {
     FILE * fptr1, * fptr2;
     char filename1[] = "lab1a.txt";
