@@ -14,7 +14,7 @@ struct list_el {
 };
 typedef struct list_el node_addr;
 
-node_addr *root, *cur;
+node_addr *root = NULL, *cur = NULL;
 
 // in case you use prev 
 node_addr *prev;
@@ -100,30 +100,6 @@ void traversingList()
     node_addr * p;
     for(p = root; p != NULL; p = p -> next)
         displayNode(p);
-}
-
-void deleteFirstElement()
-{
-    node_addr *del = root;
-    root = del -> next;
-    free(del);
-    cur = root;
-}
-
-void deleteCurrentElement()
-{
-    node_addr *i;
-    if(cur == NULL) return;
-    if(cur == roor) deleteFirstElement();
-    else {
-        i = root;
-        while(i -> next != cur && cur != NULL)
-            i = i -> next;
-        prev = i;
-        prev -> next = cur -> next;
-        free(cur);
-        cur = prev -> next;
-    }
 }
 
 int main() {
