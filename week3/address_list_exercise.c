@@ -1,3 +1,4 @@
+//read data from file phone.dat
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -114,7 +115,7 @@ void deleteCurrentElement()
 {
     node_addr *i;
     if(cur == NULL) return;
-    if(cur == roor) deleteFirstElement();
+    if(cur == root) deleteFirstElement();
     else {
         i = root;
         while(i -> next != cur && cur != NULL)
@@ -137,27 +138,36 @@ void freeList()
     }
 }
 
-node_addr *list_reverse(node_addr *root)
+node_addr *list_reverse(node_addr **roott)
 {
-    cur = NULL;
-    prev = NULL;
-    while(root != NULL)
+    node_addr *curr, *prevv;
+    curr = NULL;
+    prevv = NULL;
+    while(*roott != NULL)
     {
-        cur = root;
-        root = root -> next;
-        cur -> next = prev;
-        prev = cur;
+        curr = *roott;
+        *roott = (*roott)->next;
+        curr -> next = prevv;
+        prevv = curr;
     }
-    return prev;
+    return prevv;
 }
 
 int main() {
-    int n = 5;
-    while(n) {
-        address tmp = readNode();
-        insertAtHead(tmp);
-        n--;
+    int n = 0;
+    FILE *fptr;
+    address add;
+    root = NULL;
+    cur = NULL;
+    if((fptr = fopen("phone.dat","rb")) == NULL)
+        printf("Can not open phone.dat");
+    else {
+        while(fread(&add, sizeof(address), 1, fptr) == 1)
+        {
+            insertAfterCurrent(add);
+        }
     }
     traversingList();
+    fclose(fptr);
     return 0;
 }
